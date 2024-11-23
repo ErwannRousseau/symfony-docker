@@ -1,0 +1,19 @@
+{% props title, description, price, imageUrl, linkUrl %}
+
+<article class="bg-background flex flex-col max-w-sm rounded shadow-lg border h-full">
+    <img class="w-full" src="{{ imageUrl }}" alt="{{ title }}">
+    <div class="flex flex-col justify-between flex-1 p-4">
+        <div>
+            <twig:heading as="h2" size="h3">{{ title }}</twig:heading>
+            <twig:p variant="muted">
+                {{ description }}
+            </twig:p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <twig:product:price price="{{ price }}" class="self-end" />
+            <twig:button as="a" href="{{ linkUrl }}" size="sm" class="w-full">
+                Show more
+            </twig:button>
+        </div>
+    </div>
+</article>

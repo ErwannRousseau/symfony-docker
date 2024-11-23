@@ -1,0 +1,7 @@
+{# This template is used to render a pricing component, with pricing logic formatted from src/Twig/Component/price.php #}
+
+<span {{ attributes.without('class') }}
+    class="w-fit bg-accent rounded-full px-3 py-1 text-sm font-semibold text-secondary-foreground {{ attributes.render('class')|tailwind_merge }}"
+>
+    {{ this.formatPrice }}
+</span>

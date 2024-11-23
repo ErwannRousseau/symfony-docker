@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="space-y-4">
+        <twig:heading as="h1">This is a heading tag `h1` with his own size `h1`</twig:heading>
+        <twig:heading as="h2">This is a heading tag `h2` with his own size `h2`</twig:heading>
+        <twig:heading as="h3" size="h1">This is a heading tag `h3` with size `h1`</twig:heading>
+
+        <div class="flex flex-col gap-4">
+            <twig:button size="lg">Default</twig:button>
+            <twig:button as="a" href="{{ path('homepage') }}" variant="secondary">Secondary</twig:button>
+            <twig:button variant="destructive" size="sm">Destructive</twig:button>
+            <twig:button as="a" href="{{ path('index_products') }}" variant="link">Show products</twig:button>
+        </div>
+    </section>
+{% endblock %}

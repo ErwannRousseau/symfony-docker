@@ -98,7 +98,13 @@
     "symfonycasts/tailwind-bundle": {
         "version": "v0.6.1"
     },
-    "twig/extra-bundle": {
-        "version": "v3.15.0"
+    "tales-from-a-dev/twig-tailwind-extra": {
+        "version": "0.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.2",
+            "ref": "7243ab070ed66198eb82c026684e9b9773e7b64a"
+        }
     }
 }

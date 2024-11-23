@@ -1,0 +1,27 @@
+{% props variant = 'default', size = "default" %}
+
+{% set pVariants = cva({
+    base: 'leading-relaxed',
+    variants: {
+        variant: {
+            default: 'text-primary-foreground',
+            secondary: 'text-secondary-foreground',
+            muted: 'text-muted-foreground'
+        },
+        size: {
+            default: 'text-base',
+            small: 'text-sm',
+            large: 'text-lg'
+        }
+    },
+    defaultVariants: {
+        variant: 'default',
+        size: 'default',
+    }
+}) %}
+
+<p {{ attributes.without('class') }}
+    class="{{ pVariants.apply({variant, size}, attributes.render('class'))|tailwind_merge }}"
+>
+    {% block content '' %}
+</p>

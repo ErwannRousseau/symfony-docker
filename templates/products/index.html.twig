@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <twig:button as="a" href="{{ path('homepage') }}" variant="link">Back home</twig:button>
+    <section class="space-y-4">
+        <twig:heading as="h1">Our products</twig:heading>
+        <div class="w-fit mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {% for product in products %}
+                <twig:product:card
+                    title="{{ product.title }}"
+                    description="{{ product.description }}"
+                    price="{{ product.price }}"
+                    imageUrl="{{ product.imageUrl }}"
+                    linkUrl="#"
+                />
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

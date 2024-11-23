@@ -1,0 +1,29 @@
+{% props as, variant = 'default', size = as %}
+
+{% set headingVariants = cva({
+    base: 'font-bold leading-tight',
+    variants: {
+        variant: {
+            default: 'text-primary',
+            secondary: 'text-secondary italic'
+        },
+        size: {
+            h1: 'text-4xl',
+            h2: 'text-3xl',
+            h3: 'text-2xl',
+            h4: 'text-xl',
+            h5: 'text-lg',
+            h6: 'text-base',
+        }
+    },
+    defaultVariants: {
+        variant: 'default',
+        size: as,
+    }
+}) %}
+
+<{{ as }} {{ attributes.without('class') }}
+    class="{{ headingVariants.apply({variant, size}, attributes.render('class'))|tailwind_merge }}"
+>
+    {% block content '' %}
+</{{ as }}>
