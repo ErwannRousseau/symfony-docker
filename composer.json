@@ -73,5 +73,9 @@
             "require": "7.1.*",
             "docker": true
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "^7.1"
     }
 }
