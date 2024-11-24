@@ -24,7 +24,7 @@ build: ## Builds the Docker images
 up: ## Start the docker hub in detached mode (no logs)
 	@$(DOCKER_COMP) up --detach
 
-start: build up ## Build and start the containers
+start: build up tailwind ## Build, start the containers and run the tailwind watch command
 
 dev: up tailwind ## Start the docker hub in detached mode and run the tailwind watch command
 
