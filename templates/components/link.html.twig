@@ -1,0 +1,26 @@
+{% props variant = 'default', size = 'default' %}
+
+{% set linkVariants = cva({
+    base: 'inline-flex items-center justify-center gap-2 w-fit whitespace-nowrap transition-colors underline-offset-4 hover:underline',
+    variants: {
+        variant: {
+            default: 'text-primary',
+            secondary: 'text-secondary',
+        },
+        size: {
+            default: 'text-base',
+            sm: 'text-sm',
+            lg: 'text-lg',
+        }
+    },
+    defaultVariants: {
+        variant: 'default',
+        size: 'default',
+    }
+}) %}
+
+<a {{ attributes.without('class') }}
+    class="{{ linkVariants.apply({variant, size}, attributes.render('class'))|tailwind_merge }}"
+>
+    {% block content '' %}
+</a>

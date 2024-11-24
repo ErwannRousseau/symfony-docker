@@ -10,7 +10,7 @@
             <twig:button size="lg">Default</twig:button>
             <twig:button as="a" href="{{ path('homepage') }}" variant="secondary">Secondary</twig:button>
             <twig:button variant="destructive" size="sm">Destructive</twig:button>
-            <twig:button as="a" href="{{ path('index_products') }}" variant="link">Show products</twig:button>
+            <twig:link href="{{ path('index_products') }}" size="lg">Show products</twig:link>
         </div>
     </section>
 {% endblock %}

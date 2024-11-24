@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <twig:button as="a" href="{{ path('homepage') }}" variant="link">Back home</twig:button>
+    <twig:link href="{{ path('homepage') }}">Back home</twig:link>
     <section class="space-y-4">
         <twig:heading as="h1">Our products</twig:heading>
         <div class="w-fit mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
