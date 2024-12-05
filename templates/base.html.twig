@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <title>Tailwind + Twig Components</title>
         <link rel="icon" href="{{ asset('icons/knp.svg') }}">
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
     </head>
-    <body class="container bg-background min-h-dvh">
+    <body class="container bg-background min-h-dvh lg">
         <main>
             {% block body %}{% endblock %}
         </main>
