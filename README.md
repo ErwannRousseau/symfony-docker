@@ -13,7 +13,7 @@ This project is a demonstration of using Tailwind CSS with Twig Components in a 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/ErwannRousseau/symfony-tailwind-twig-components
+    git clone https://github.com/KnpLabs/symfony-tailwind-twig-components.git
     cd symfony-tailwind-twig-components
     ```
 

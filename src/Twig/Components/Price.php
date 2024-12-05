@@ -13,7 +13,7 @@ final class Price
     public float $price;
     public string $locale = 'en_US';
 
-    public function getFormatPrice(): string
+    public function formatPrice(): string
     {
         $formatter = new NumberFormatter($this->locale, NumberFormatter::CURRENCY);
         return $formatter->formatCurrency($this->price, 'USD');
