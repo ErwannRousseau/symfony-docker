@@ -25,10 +25,6 @@ php bin/console tailwind:init
 
 Le fichier `tailwind.config.js` sera créé à la racine de votre projet. Une bonne configuration de Tailwind est essentielle pour une utilisation optimale.
 
-### Conseil sur les conventions de nommage
-
-Dans notre équipe, lors d'une refonte graphique avec des maquettes Figma, nous n’avions pas défini de convention claire pour les variables de style. Résultat : des classes en `Camel-Case` (`bg-Grey-Light`), peu adaptées à Tailwind. Après discussion, nous avons opté pour une convention en `kebab-case` (`bg-grey-light`), respectant les conventions Tailwind et facilitant la maintenance.
-
 ## Utilisation
 
 Incluez le CSS de Tailwind dans le template de base :
@@ -75,7 +71,7 @@ theme: {
 },
 ```
 
-Ajoutez des couleurs personnalisées, raduis, etc. dans la clé `extend` :
+Ajoutez des couleurs personnalisées, radius, etc. dans la clé `extend` :
 
 ```js
 extend: {
@@ -105,7 +101,7 @@ Vous pouvez retrouver une configuration plus complète dans notre [repo de démo
 Twig Components, un composant Symfony, permet de créer des composants réutilisables dans vos templates Twig. Ces composants peuvent être :
 
 - Anonymes (Anonymous Twig Component) : fichiers Twig simples dédiés à l’UI.
-- Avec logique métier (Live Twig Component) : classes PHP pour des composants plus complexes, avec un template Twig associé.
+- Avec logique (Live Twig Component) : classes PHP pour des composants plus complexes, avec un template Twig associé.
 
 ### Anonymous Twig Component et approche CVA
 
@@ -181,7 +177,7 @@ Rendu HTML:
 
 ### Live Twig Components
 
-Comme je le disais, vous pouvez aussi créer des composants avec des classes PHP, pour des cas plus complexes nécessitant une certaine logique métier.
+Comme je le disais, vous pouvez aussi créer des composants avec des classes PHP, pour des cas plus complexes nécessitant une certaine logique.
 
 Prenons un exemple très simple de formatage d'un prix. Imaginons que votre contrôleur vous renvoie un prix, et que vous voulez l'afficher en euros. Par exemple, `12.34` devrait être affiché comme `12,34 €`.
 
@@ -225,7 +221,7 @@ Dans ce template, la méthode `formatPrice` est appelée via `this.formatPrice`,
 
 Avec cette approche, vous pouvez :
 
-- **Séparer la logique métier du rendu** : La méthode `formatPrice` encapsule la logique de formatage.
+- **Séparer la logique du rendu** : La méthode `formatPrice` encapsule la logique de formatage.
 - **Tirer parti de la puissance de PHP** : Vous avez accès à toutes les fonctionnalités de PHP pour construire vos composants, comme ici avec `NumberFormatter`.
 
 Fini les Twig Extension qui retournent du HTML. Grâce à cette méthode, vous obtenez des composants puissants, clairs et réutilisables.
@@ -248,7 +244,7 @@ Rendu HTML :
 
 ##### Bonus: Testez vos composants
 
-Vous pouvez tester vos composants Twig avec PHPUnit d'une simplicité deconcertente. Voici un exemple de test pour notre composant `Price`.
+Vous pouvez tester vos composants Twig avec PHPUnit avec une simplicité déconcertante. Voici un exemple de test pour notre composant `Price`.
 
 ```php
 <?php
@@ -293,12 +289,10 @@ Et voilà rien de plus compliqué que ca pour tester nos composants Twig. On tes
 
 - **Lisibilité du Code** : Twig peut parfois rendre le code plus verbeux, surtout avec des composants complexes ou lorsque plusieurs niveaux de composants sont imbriqués. La syntaxe de Twig n'est pas toujours la plus concise et peut rendre le DOM final difficile à appréhender, surtout pour les développeurs non familiers avec cette approche. Par exemple, l'utilisation de directives Twig à l’intérieur des attributs HTML pour manipuler des classes, des styles, etc., peut rapidement rendre le code difficile à lire.
 
-- **Séparation de la Logique et de la Présentation** : Lorsqu'on utilises à la fois des Twig Components et des classes PHP pour définir la logique, cela peut entraîner une certaine confusion. Par exemple, un composant Twig peut appeler une méthode définie par sa classe PHP, ce qui peut rendre la traçabilité du flux logique un peu floue, surtout pour des développeurs qui ne sont pas familiers avec ce type d'architecture.
-
 - **Utilisation de Twig Extension vs Twig Components** : Twig permet créer des extensions ce qui peut simplifier certaines tâches. Additionné avec des Twig Components, Anonymous ou/et Live, cela peut créer un soucis d'harmonisation dans votre codebase.
 
 ## Conclusion
 
-L’utilisation de Twig Components avec Tailwind CSS est une approche puissante et moderne pour développer le frontend d'un monolithe Symfony. Certes, cette méthodologie a ses limites, comme la lisibilité parfois complexe du DOM, dû aux parfoit nombreuses classes Tailwind et à Twig qui peut parfois rendre le code plus verbeux, ou bien la nécessité de trouver un équilibre entre logique PHP et Twig. Cependant, ces défis peuvent être surmontés avec une bonne organisation, un découpage rigoureux des composants et des conventions claires.
+L’utilisation de Twig Components avec Tailwind CSS est une approche puissante et moderne pour développer le frontend d'un monolithe Symfony. Certes, cette méthodologie a ses limites, comme la lisibilité parfois complexe du DOM due aux (parfois) nombreuses classes Tailwind et à Twig qui peut parfois rendre le code plus verbeux, ou bien la nécessité de trouver un équilibre entre logique PHP et Twig. Cependant, cela peut être surmontés avec une bonne organisation, un découpage rigoureux des composants et des conventions claires.
 
-Selon notre d'expérience, nous sommes pleinement satisfaits de cette approche. Elle nous a permis d'intégrer nos maquettes de manière de plus en plus rapide et efficace grâce à une bibliothèque de composants que nous avons enrichie au fil du projet. Cette productivité accrue n’aurait pas été possible sans Tailwind CSS, qui simplifie et accélère grandement le stylage de nos composants et du reste de notre interface. En somme, cette combinaison s'est révélée être un excellent choix pour nos besoins.
+Suite à notre expérience, nous sommes pleinement satisfaits de cette approche. Elle nous a permis d'intégrer nos maquettes de plus en plus rapidement et efficacement grâce à une bibliothèque de composants que nous avons enrichie au fil du projet. Le gain de productivité apporté par Tailwind CSS, simplifie et nous a aidé à accélèrer le stylage de nos composants et du reste de notre interface. En somme, cette combinaison s'est révélée être un excellent choix pour nos besoins.
