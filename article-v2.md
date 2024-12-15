@@ -1,12 +1,12 @@
-# Pourquoi associer Tailwind CSS et Twig Components est une excellente combinaison pour le frontend d'un monolithe Symfony
+# Un frontend simple et efficace grâce aux Twig Components et à Tailwind CSS : une combinaison gagnante pour un monolithe Symfony
 
-Symfony, avec Twig pour le templating, reste un choix incontournable dans l’écosystème PHP, tandis que Tailwind CSS s’est imposé comme un des leader des framework CSS. Associés, ces outils apportent des synergies intéressantes.
+Symfony, avec Twig pour le templating, reste un choix incontournable dans l’écosystème PHP, tandis que Tailwind CSS s’est imposé comme un des leader des framework CSS. Associés, ces outils apportent des synergies intéressantes pour moderniser votre frontend.
 
 ## Pourquoi associer Tailwind CSS et Twig Components ?
 
-Symfony est réputé comme un solide framework backend, mais son écosystème frontend est souvent perçu comme limité. Twig, le moteur de templates, fournit une syntaxe plus ou moins apprecié pour vos vues, tandis que Tailwind CSS permet un stylage rapide et cohérent grâce à ses classes utilitaires.
+Symfony est réputé comme un solide framework backend, et son écosystème frontend a considérablement évolué. Avec la suite Symfony UX, le framework offre désormais des approches intéressantes pour le développement frontend. Twig, le moteur de templates, présente des avantages et des inconvénients comme tout moteur de template, mais il reste un choix solide pour structurer vos vues. De plus, Tailwind CSS permet un stylage rapide et cohérent grâce à ses classes utilitaires.
 
-Les Twig Components, sont introduits pour encourager la réutilisabilité et la clarté dans les vues, et peuvent s’intègrer harmonieusement avec Tailwind CSS. Tailwind permettent de styliser rapidement les composants Twig, tandis que les Twig Components facilitent la réutilisation de ces composant.
+Les Twig Components sont introduits pour encourager la réutilisabilité et la clarté dans les vues, et peuvent s’intégrer harmonieusement avec Tailwind CSS. Tailwind, en permettant de déclarer le style directement dans le DOM, directement sur le tag HTML concerné, il facilite le stylage rapide des composants Twig. En associant les deux, on peut encapsuler à la fois la structure et l'UI d'un composant. De plus, avec les class components, il est aussi possible d'encapsuler également le comportement du composant. Et ainsi réutiliser le tout à notre guise dans notre application pour gagner un productivité et cohérence.
 
 ## Présentation rapide des outils
 
@@ -65,7 +65,7 @@ Il existe un approche appelée **CVA** (*Class Variant Authority*), qui centrali
 </{{ as }}>
 ```
 
-Voici notre composant bouton qui accepte trois props : `as`, `variant`, et `size`. Cette approche de composant dite "polymorphic" permet de rendre par défaut le composant comme une balise `button`, mais vous pouvez le changer en `a`, `div`, ou autre en passant la prop `as`.
+Voici notre composant bouton qui accepte trois props : `as`, `variant`, et `size`. Cette approche de composant dite "polymorphic" permet de rendre par défaut le composant comme une balise `button`, mais vous pouvez le changer en `a`, ou autre en passant le tag HTML voulu via la props `as`.
 
 #### Usage
 
@@ -85,7 +85,7 @@ Voici notre composant bouton qui accepte trois props : `as`, `variant`, et `si
 
 #### Bonus `tailwind_merge`
 
-Notez ici l'utiliation du filtre `tailwind_merge` qui permet de fusionner les classes Tailwind en doublon, conflit quand vous surchargez les classes de vos composants.
+Notez ici l'utiliation du filtre `tailwind_merge` qui permet de fusionner les classes Tailwind en doublon ou conflit quand vous surchargez les classes de vos composants.
 
 ```twig
 <twig:button as="a" href="https://knplabs.com" size="lg" class="bg-red-500">Rouge KNPlabs</twig:button>
@@ -99,15 +99,15 @@ Rendu HTML:
 </a>
 ```
 
-Au lieu d'avoir des classes en conflit `bg-primary bg-red-500`, le filtre `tailwind_merge` fusionne les classes en doublon pour n'avoir que `bg-red-500` car on a surcharger la class de notre composant. Et on aura comme résultat un bouton rouge.
+Au lieu d'avoir des classes en conflit `bg-primary` et `bg-red-500`, le filtre `tailwind_merge` fusionne les classes en doublon pour n'avoir que `bg-red-500` car on a surcharger la class de notre composant. Et on aura comme résultat un bouton rouge.
 
-Filtre issue du bundle [tales-from-a-dev/twig-tailwind-extra: 🌱 A Twig extension for Tailwind](https://github.com/tales-from-a-dev/twig-tailwind-extra)
+*Filtre issue du bundle [tales-from-a-dev/twig-tailwind-extra: 🌱 A Twig extension for Tailwind](https://github.com/tales-from-a-dev/twig-tailwind-extra)*
 
 ### Class Components
 
 Vous pouvez aussi créer des composants avec des classes PHP, pour des cas plus complexes nécessitant une certaine logique.
 
-Prenons un exemple simple de formatage d'un prix. Imaginons que votre contrôleur vous renvoie un prix, et que vous voulez l'afficher en euros. Par exemple, `12.34` devrait être affiché comme `12,34 €`.
+Prenons un exemple simple de formatage d'un prix. Imaginons que votre contrôleur vous renvoie un prix, et que vous voulez l'afficher en euros. Par exemple, `1234` (on stock les prix en centime) devrait être affiché comme `12,34 €`.
 
 Vous pouvez créer un Twig Component avec une classe PHP et un template pour gerer le rendu. Ce composant acceptera des propriétés `price` et `locale`, et expose une méthode `formatPrice`.
 
@@ -122,13 +122,13 @@ use NumberFormatter;
 #[AsTwigComponent('product:price')]
 final class Price
 {
-    public float $price;
+    public int $price;
     public string $locale = 'fr_FR';
 
     public function formatPrice(): string
     {
         $formatter = new NumberFormatter($this->locale, NumberFormatter::CURRENCY);
-        return $formatter->formatCurrency($this->price, 'EUR');
+        return $formatter->formatCurrency($this->price / 100, 'EUR');
     }
 }
 ```
@@ -148,14 +148,14 @@ Dans ce template, la méthode `formatPrice` est appelée via `this.formatPrice`
 #### Usage
 
 ```twig
-<twig:product:price price="19.99" />
+<twig:product:price price="1234" />
 ```
 
 #### Rendu HTML
 
 ```html
 <span class="w-fit px-3 py-1 bg-gray-300 rounded-full text-sm font-semibold text-gray-900">
-    19,99 €
+    12,34 €
 </span>
 ```
 
@@ -180,11 +180,11 @@ class PriceTest extends KernelTestCase
     {
         $component = $this->mountTwigComponent(
             name: Price::class,
-            data: ['price' => 99.99, 'locale' => 'fr_FR'],
+            data: ['price' => 9999, 'locale' => 'fr_FR'],
         );
 
         $this->assertInstanceOf(Price::class, $component);
-        $this->assertSame(99.99, $component->price);
+        $this->assertSame(9999, $component->price);
         $this->assertSame('fr_FR', $component->locale);
     }
 
@@ -192,7 +192,7 @@ class PriceTest extends KernelTestCase
     {
         $rendered = $this->renderTwigComponent(
             name: Price::class,
-            data: ['price' => 99.99, 'locale' => 'fr_FR'],
+            data: ['price' => 9999, 'locale' => 'fr_FR'],
         );
 
         $this->assertStringContainsString('99,99 €', $rendered);
@@ -207,6 +207,7 @@ Et voilà rien de plus compliqué que ca pour tester vos composants Twig. On tes
 1. **Lisibilité du code**
 
     L'abondance de classes Tailwind dans un même fichier peut rendre les templates volumineux difficiles à lire. Une bonne connaissances des utilities de Tailwind est nécessaire pour préserver une bonne lisibilité.
+    De plus les Twig Components introduisent une nouvelle syntaxe qui peut être un peu déroutante au début mais reste tres proches du HTML.
 
 2. **Courbe d’apprentissage**
 
