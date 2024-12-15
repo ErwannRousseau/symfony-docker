@@ -14,11 +14,11 @@ class PriceTest extends KernelTestCase
     {
         $component = $this->mountTwigComponent(
             name: Price::class,
-            data: ['price' => 99.99, 'locale' => 'en_US'],
+            data: ['price' => 9999, 'locale' => 'en_US'],
         );
 
         $this->assertInstanceOf(Price::class, $component);
-        $this->assertSame(99.99, $component->price);
+        $this->assertSame(9999, $component->price);
         $this->assertSame('en_US', $component->locale);
     }
 
@@ -26,7 +26,7 @@ class PriceTest extends KernelTestCase
     {
         $rendered = $this->renderTwigComponent(
             name: Price::class,
-            data: ['price' => 99.99, 'locale' => 'en_US'],
+            data: ['price' => 9999, 'locale' => 'en_US'],
         );
 
         $this->assertStringContainsString('$99.99', $rendered);

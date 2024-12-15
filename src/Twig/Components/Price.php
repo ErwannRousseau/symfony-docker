@@ -10,12 +10,12 @@ use NumberFormatter;
 #[AsTwigComponent('product:price')]
 final class Price
 {
-    public float $price;
+    public int $price;
     public string $locale = 'en_US';
 
     public function formatPrice(): string
     {
         $formatter = new NumberFormatter($this->locale, NumberFormatter::CURRENCY);
-        return $formatter->formatCurrency($this->price, 'USD');
+        return $formatter->formatCurrency($this->price / 100, 'USD');
     }
 }
